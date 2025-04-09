@@ -1,0 +1,46 @@
+.login-container {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-top: env(safe-area-inset-top);
+}
+
+.perspective {
+  perspective: 800px;
+}
+
+.logo-container {
+  animation: spin3d 3.5s ease-out forwards;
+
+  transition: transform 0.3s ease;
+}
+
+@keyframes spin3d {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+.logo {
+  font-family: verdana;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #4a5eee;
+  text-shadow: 1px 1px 1px #3240c9, 1px 2px 1px #3240c9, 1px 3px 1px #3240c9,
+    1px 4px 1px #3240c9, 1px 5px 1px #3240c9, 1px 8px 3px rgba(16, 16, 16, 0.2),
+    1px 10px 5px rgba(16, 16, 16, 0.1), 1px 12px 10px rgba(16, 16, 16, 0.1);
+}
+
+.login-btn {
+  --background: #3240c9;
+  --color: #fafafa;
+  --border-radius: 10px;
+  --border: none;
+}

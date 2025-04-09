@@ -10,10 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.3.0",
+    "@capacitor/app": "^7.0.1",
+    "@capacitor/browser": "^7.0.1",
     "@capacitor/core": "^7.2.0",
     "@capacitor/ios": "^7.2.0",
+    "@ionic/react": "^8.5.3",
+    "axios": "^1.8.4",
+    "lucide-react": "^0.487.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-multi-carousel": "^2.8.5",
+    "react-router-dom": "^7.4.1"
   },
   "devDependencies": {
     "@capacitor/cli": "^7.2.0",
