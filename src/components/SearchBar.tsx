@@ -1,5 +1,6 @@
+import { IonIcon } from "@ionic/react";
+import { hammer } from "ionicons/icons";
 import { IonSearchbar } from "@ionic/react";
-import { Hourglass } from "lucide-react";
 
 import "./SearchBar.css";
 
@@ -11,7 +12,7 @@ function SearchBar() {
         showCancelButton="focus"
         debounce={500}
       ></IonSearchbar>
-      <Hourglass className="hourglass-icon" />
+      <IonIcon icon={hammer} className="hammer-icon" />
     </div>
   );
 }

@@ -2,3 +2,8 @@
   max-width: 1290px;
   max-height: 2796px;
 }
+
+ion-modal#settings-modal ion-toolbar {
+  --background: #383838;
+  --color: white;
+}

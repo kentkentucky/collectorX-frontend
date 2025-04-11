@@ -52,6 +52,11 @@ ion-input.ion-custom-input {
   --placeholder-color: #aaaaaa;
   --placeholder-opacity: 0.8;
   --placeholder-font-weight: 500;
+  --background: #656565;
+}
+
+ion-item.ion-custom-item {
+  --background: #656565;
 }
 
 .next-btn {

@@ -28,7 +28,7 @@ function UserForm() {
     <div className="user-form-container">
       <form className="user-form">
         <h2 className="form-header">Complete Your Profile</h2>
-        <IonItem>
+        <IonItem className="ion-custom-item">
           <IonInput
             label="Full Name"
             labelPlacement="floating"
@@ -38,7 +38,7 @@ function UserForm() {
             onIonChange={(e) => handleInputChange(e, "fullName")}
           ></IonInput>
         </IonItem>
-        <IonItem>
+        <IonItem className="ion-custom-item">
           <IonInput
             label="Username"
             labelPlacement="floating"
@@ -48,7 +48,7 @@ function UserForm() {
             onIonChange={(e) => handleInputChange(e, "username")}
           ></IonInput>
         </IonItem>
-        <IonItem>
+        <IonItem className="ion-custom-item">
           <IonInput
             label="Contact"
             labelPlacement="floating"
@@ -59,7 +59,7 @@ function UserForm() {
             onIonChange={(e) => handleInputChange(e, "contact")}
           ></IonInput>
         </IonItem>
-        <IonItem>
+        <IonItem className="ion-custom-item">
           <IonInput
             label="Birthday"
             labelPlacement="floating"
@@ -70,10 +70,11 @@ function UserForm() {
             onIonChange={(e) => handleInputChange(e, "birthday")}
           ></IonInput>
         </IonItem>
-        <IonItem>
+        <IonItem className="ion-custom-item">
           <IonSelect
             label="Gender"
             labelPlacement="floating"
+            interface="action-sheet"
             value={userContext.userDetails.gender}
             onIonChange={(e) => handleInputChange(e, "gender")}
           >
@@ -82,7 +83,7 @@ function UserForm() {
             <IonSelectOption value="Others">Others</IonSelectOption>
           </IonSelect>
         </IonItem>
-        <IonItem>
+        <IonItem className="ion-custom-item">
           <IonInput
             label="Address"
             labelPlacement="floating"

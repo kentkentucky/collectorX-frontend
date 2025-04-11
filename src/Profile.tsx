@@ -1,12 +1,39 @@
-import { Settings, Star } from "lucide-react";
+import {
+  IonIcon,
+  IonHeader,
+  IonContent,
+  IonToolbar,
+  IonTitle,
+  IonButton,
+  IonButtons,
+  IonModal,
+  IonList,
+  IonItem,
+  createAnimation,
+} from "@ionic/react";
+import {
+  settingsOutline,
+  star,
+  heart,
+  receipt,
+  pricetag,
+  hammer,
+  logOut,
+  arrowForward,
+} from "ionicons/icons";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Browser } from "@capacitor/browser";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { formatDistanceToNow } from "date-fns";
 
 import NavBar from "./components/NavBar";
 import { AuthContext } from "./App";
 import background from "./assets/blue background.jpg";
 
 import "./Profile.css";
+
+const logoutUri = import.meta.env.VITE_AUTH0_URI;
 
 type ProfileType = {
   _id?: string;
@@ -16,14 +43,37 @@ type ProfileType = {
   reviews?: {
     rating: number;
   }[];
+  listings?: {
+    _id: string;
+    name: string;
+    price: number;
+    images: string[];
+    condition: {
+      _id: string;
+      name: string;
+    };
+    createdAt: Date;
+    likes: number;
+  }[];
 };
 
 function Profile() {
   const authContext = useContext(AuthContext);
 
+  const { logout } = useAuth0();
+
   const [profile, setProfile] = useState<ProfileType>({});
+  console.log(profile);
   const [accountDuration, setAccountDuration] = useState<string>("");
   const [averageRating, setAverageRating] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const actions = [
+    { name: "Watchlist", icon: heart },
+    { name: "Purchases", icon: receipt },
+    { name: "Sales", icon: pricetag },
+    { name: "Bids & Offers", icon: hammer },
+  ];
 
   useEffect(() => {
     getProfile();
@@ -96,6 +146,60 @@ function Profile() {
     return averageRating.toFixed(2);
   };
 
+  const doLogout = async () => {
+    await logout({
+      logoutParams: {
+        returnTo: logoutUri,
+      },
+      async openUrl(url) {
+        // Redirect using Capacitor's Browser plugin
+        await Browser.open({
+          url,
+          windowName: "_self",
+        });
+      },
+    });
+    window.location.href = "/";
+  };
+
+  const enterAnimation = (baseEl: HTMLElement) => {
+    const root = baseEl.shadowRoot;
+
+    const backdropAnimation = createAnimation()
+      .addElement(root?.querySelector("ion-backdrop")!)
+      .fromTo("opacity", "0.01", "var(--backdrop-opacity)");
+
+    const wrapperAnimation = createAnimation()
+      .addElement(root?.querySelector(".modal-wrapper")!)
+      .fromTo("transform", "translateX(100%)", "translateX(0%)")
+      .fromTo("opacity", "0.1", "1");
+
+    return createAnimation()
+      .addElement(baseEl)
+      .easing("ease-out")
+      .duration(300)
+      .addAnimation([backdropAnimation, wrapperAnimation]);
+  };
+
+  const leaveAnimation = (baseEl: HTMLElement) => {
+    const root = baseEl.shadowRoot;
+
+    const backdropAnimation = createAnimation()
+      .addElement(root?.querySelector("ion-backdrop")!)
+      .fromTo("opacity", "var(--backdrop-opacity)", "0");
+
+    const wrapperAnimation = createAnimation()
+      .addElement(root?.querySelector(".modal-wrapper")!)
+      .fromTo("transform", "translateX(0%)", "translateX(100%)")
+      .fromTo("opacity", "1", "0");
+
+    return createAnimation()
+      .addElement(baseEl)
+      .easing("ease-in")
+      .duration(300)
+      .addAnimation([backdropAnimation, wrapperAnimation]);
+  };
+
   return (
     <div className="profile-container">
       <div className="background-container">
@@ -106,8 +210,40 @@ function Profile() {
         />
       </div>
       <div className="actions-container">
-        <Settings className="settings-icon" />
+        <IonIcon
+          icon={settingsOutline}
+          className="settings-icon"
+          onClick={() => setIsOpen(true)}
+        />
       </div>
+      <IonModal
+        isOpen={isOpen}
+        id="settings-modal"
+        enterAnimation={enterAnimation}
+        leaveAnimation={leaveAnimation}
+      >
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle className="settings-title">Settings</IonTitle>
+            <IonButtons slot="start">
+              <IonButton onClick={() => setIsOpen(false)}>
+                <IonIcon icon={arrowForward} className="arrow-forward-icon" />
+              </IonButton>
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent className="ion-padding">
+          <IonList>
+            <IonItem className="settings-item">Edit Profile</IonItem>
+            <IonItem className="settings-item" onClick={doLogout}>
+              <div className="logout-item">
+                <IonIcon icon={logOut} slot="start" className="logout-icon" />
+                Log Out
+              </div>
+            </IonItem>
+          </IonList>
+        </IonContent>
+      </IonModal>
       <div className="user-details-container">
         <div className="user-top-section">
           <div className="user-image-wrapper">
@@ -130,7 +266,7 @@ function Profile() {
             {calculateAverageRating() ? (
               <div className="average-rating">
                 <p>{averageRating}</p>
-                <Star className="star-icon" />
+                <IonIcon icon={star} className="star-icon" />
                 <p className="review-count">
                   {profile.reviews?.length} reviews
                 </p>
@@ -141,11 +277,48 @@ function Profile() {
           </div>
           <div className="account-duration">
             <p className="duration">{accountDuration}</p>
-            <p className="collectorX">on CollectorX</p>
+            <p className="duration-bottom-text">on CollectorX</p>
           </div>
         </div>
       </div>
-      <div className="actions-hub"></div>
+      <div className="user-actions-hub">
+        {actions.map((action, index) => (
+          <div className="action-btn" key={index}>
+            <IonIcon icon={action.icon} className="action-icon" />
+            <p className="action-name">{action.name}</p>
+          </div>
+        ))}
+      </div>
+      <div className="user-listings-container">
+        <h2 className="listings-header">Listings</h2>
+        <div className="profile-listings">
+          {profile.listings?.map((listing) => (
+            <div className="profile-listing-card" key={listing._id}>
+              <div className="card-image-wrapper">
+                <img src={listing.images?.[0]} className="card-image" />
+                <div className="listing-duration-overlay">
+                  {listing.createdAt
+                    ? formatDistanceToNow(listing.createdAt, {
+                        addSuffix: true,
+                      })
+                    : "Unknown"}
+                </div>
+              </div>
+              <div className="card-details">
+                <div className="card-meta">
+                  <p className="listing-name">{listing.name}</p>
+                  <p className="listing-price">S${listing.price}</p>
+                  <p className="listing-condition">{listing.condition.name}</p>
+                </div>
+                <div className="likes-container">
+                  <IonIcon icon={heart} className="heart-icon" />
+                  <p className="likes-number">{listing.likes}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
       <NavBar />
     </div>
   );

@@ -1,0 +1,142 @@
+.list-container {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 16px;
+  padding-bottom: 30px;
+}
+
+.close-icon {
+  width: 30px;
+  height: 30px;
+  color: #4a5eee;
+}
+
+.image-preview-container {
+  width: 100%;
+  padding-right: 16px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #383838;
+}
+
+.captured-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.add-circle-icon {
+  width: 30px;
+  height: 30px;
+  color: #4a5eee;
+  flex-shrink: 0;
+}
+
+.choose-category-container {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-right: 16px;
+}
+
+.choose-category-header {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 125%;
+  letter-spacing: 2%;
+  margin: 0;
+  padding: 0;
+}
+
+.category-searchbar {
+  --background: #717171;
+  --color: #fff;
+  --placeholder-color: #fff;
+  --icon-color: #fff;
+  --clear-button-color: #fff;
+  --border-radius: 4px;
+  padding: 0;
+  margin: 0;
+}
+
+.category-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.category-option {
+  border-bottom: 1px solid #383838;
+}
+
+.listing-details-form {
+  height: 100%;
+  padding-right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+ion-input.ion-custom-input {
+  --color: black;
+  --placeholder-color: #aaaaaa;
+  --placeholder-opacity: 0.8;
+  --placeholder-font-weight: 500;
+  --background: #656565;
+  --border: none;
+}
+
+.autocomplete-input {
+  width: 85vw;
+  height: 100%;
+  background-color: #656565;
+  border: none;
+  color: black;
+}
+
+.autocomplete-input::placeholder {
+  color: black;
+}
+
+.autocomplete-input:focus {
+  outline: none;
+  border: none;
+}
+
+ion-item.ion-custom-item {
+  --background: #656565;
+}
+
+.listing-form-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 16px;
+}
+
+.back-btn,
+.finish-btn {
+  width: 50%;
+  background-color: #5032f6;
+  --border-radius: 15px;
+  background: none;
+}

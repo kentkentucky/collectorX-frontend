@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Carousel from "react-multi-carousel";
+import { useNavigate } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
 import SearchBar from "./components/SearchBar";
@@ -25,6 +26,8 @@ type Advertisement = {
 
 function Home() {
   const authContext = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
 

@@ -7,7 +7,7 @@
   z-index: 1000;
   height: 100px;
   background-color: #242424;
-  border-top: 1px solid #828089;
+  border-top: 2px solid #383838;
 }
 
 .navbar {
@@ -16,6 +16,7 @@
   justify-content: space-evenly;
   height: 100px;
   background-color: #242424;
+  padding: 5px;
 }
 
 .navbar-icon-wrapper {

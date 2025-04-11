@@ -104,7 +104,7 @@ function Login() {
       {isAuthenticated ? null : (
         <IonButton className="login-btn" onClick={login}>
           <IonIcon icon={logIn} slot="start" />
-          Login with Auth0
+          Login
         </IonButton>
       )}
     </div>

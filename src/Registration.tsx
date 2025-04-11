@@ -56,12 +56,8 @@ function Registration() {
   });
 
   const renderForm = () => {
-    if (registrationStage == 1) {
-      return <UserForm />;
-    }
-    if (registrationStage == 2) {
-      return <PreferenceForm />;
-    }
+    if (registrationStage == 1) return <UserForm />;
+    if (registrationStage == 2) return <PreferenceForm />;
   };
 
   return (
