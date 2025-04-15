@@ -20,6 +20,8 @@ import { defineCustomElements } from "@ionic/pwa-elements/loader";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createContext, useState } from "react";
 import { IonApp } from "@ionic/react";
+import { Capacitor } from "@capacitor/core";
+import { Stripe } from "@capacitor-community/stripe";
 
 setupIonicReact();
 defineCustomElements(window);
@@ -31,6 +33,8 @@ import Explore from "./Explore";
 import Profile from "./Profile";
 import Chat from "./Chat";
 import List from "./List";
+import Listing from "./Listing";
+import Category from "./Category";
 
 interface AuthContextType {
   authToken: string;
@@ -40,6 +44,12 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
+
+if (Capacitor.isPluginAvailable("Stripe")) {
+  Stripe.initialize({
+    publishableKey: import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY + "",
+  });
+}
 
 function App() {
   const [authToken, setAuthToken] = useState("");
@@ -56,6 +66,8 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/list" element={<List />} />
+            <Route path="/listing/:listingID" element={<Listing />} />
+            <Route path="/category/:categoryID" element={<Category />} />
           </Routes>
         </BrowserRouter>
       </AuthContext.Provider>

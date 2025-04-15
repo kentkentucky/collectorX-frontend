@@ -41,7 +41,9 @@ function Explore() {
     }
   };
 
-  const handleCategory = (categoryID: string) => {};
+  const handleCategory = (categoryID: string) => {
+    navigate(`/category/${categoryID}`);
+  };
 
   return (
     <div className="explore-container">

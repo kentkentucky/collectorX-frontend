@@ -14,6 +14,7 @@ interface Listing {
   category: string;
   price: number | null;
   condition: string;
+  size: string;
   dealMethod: string;
   location: string;
   images: string[];
@@ -31,6 +32,7 @@ export const ListingContext = createContext<ListingProviderType>({
     category: "",
     price: null,
     condition: "",
+    size: "",
     dealMethod: "",
     location: "",
     images: [],
@@ -58,6 +60,7 @@ function List() {
     category: "",
     price: null,
     condition: "",
+    size: "",
     dealMethod: "",
     location: "",
     images: [],

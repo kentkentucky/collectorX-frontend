@@ -5,7 +5,8 @@
   flex-direction: column;
   gap: 20px;
   padding-top: env(safe-area-inset-top);
-  overflow-x: auto;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .categories-container {
@@ -13,8 +14,6 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 2 columns */
   gap: 16px;
-  padding-left: 24px;
-  padding-right: 24px;
 }
 
 .category-tile {

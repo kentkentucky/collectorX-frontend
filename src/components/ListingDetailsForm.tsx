@@ -45,11 +45,14 @@ function ListingDetailsForm() {
 
   const getConditions = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/list/condition", {
-        headers: {
-          Authorization: `Bearer ${authContext?.authToken}`,
-        },
-      });
+      const response = await axios.get(
+        "http://localhost:8080/listing/condition",
+        {
+          headers: {
+            Authorization: `Bearer ${authContext?.authToken}`,
+          },
+        }
+      );
       if (response) {
         setConditions(response.data);
       }
@@ -92,6 +95,7 @@ function ListingDetailsForm() {
     formData.append("description", listingContext.listingDetails.description);
     formData.append("category", listingContext.listingDetails.category);
     formData.append("condition", listingContext.listingDetails.condition);
+    formData.append("size", listingContext.listingDetails.size);
     formData.append(
       "price",
       listingContext.listingDetails.price?.toString() || ""
@@ -167,6 +171,16 @@ function ListingDetailsForm() {
         </IonItem>
         <IonItem className="ion-custom-item">
           <IonInput
+            label="Size"
+            labelPlacement="floating"
+            placeholder="Size"
+            className="ion-custom-input"
+            value={listingContext.listingDetails.size}
+            onIonChange={(e) => handleInputChange(e, "size")}
+          ></IonInput>
+        </IonItem>
+        <IonItem className="ion-custom-item">
+          <IonInput
             label="Listing Price"
             labelPlacement="floating"
             type="number"
@@ -189,7 +203,8 @@ function ListingDetailsForm() {
             <IonSelectOption value="either">Either</IonSelectOption>
           </IonSelect>
         </IonItem>
-        {listingContext.listingDetails.dealMethod === "meetup" && (
+        {(listingContext.listingDetails.dealMethod === "meetup" ||
+          listingContext.listingDetails.dealMethod === "either") && (
           <div>
             <IonItem className="ion-custom-item">
               <Autocomplete

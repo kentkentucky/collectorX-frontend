@@ -26,6 +26,7 @@ import { Browser } from "@capacitor/browser";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
 import { AuthContext } from "./App";
@@ -62,8 +63,9 @@ function Profile() {
 
   const { logout } = useAuth0();
 
+  const navigate = useNavigate();
+
   const [profile, setProfile] = useState<ProfileType>({});
-  console.log(profile);
   const [accountDuration, setAccountDuration] = useState<string>("");
   const [averageRating, setAverageRating] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -200,6 +202,10 @@ function Profile() {
       .addAnimation([backdropAnimation, wrapperAnimation]);
   };
 
+  const handleListing = (listingID: string) => {
+    navigate(`/listing/${listingID}`);
+  };
+
   return (
     <div className="profile-container">
       <div className="background-container">
@@ -293,7 +299,13 @@ function Profile() {
         <h2 className="listings-header">Listings</h2>
         <div className="profile-listings">
           {profile.listings?.map((listing) => (
-            <div className="profile-listing-card" key={listing._id}>
+            <div
+              className="profile-listing-card"
+              key={listing._id}
+              onClick={() => {
+                handleListing(listing._id);
+              }}
+            >
               <div className="card-image-wrapper">
                 <img src={listing.images?.[0]} className="card-image" />
                 <div className="listing-duration-overlay">
@@ -306,9 +318,11 @@ function Profile() {
               </div>
               <div className="card-details">
                 <div className="card-meta">
-                  <p className="listing-name">{listing.name}</p>
-                  <p className="listing-price">S${listing.price}</p>
-                  <p className="listing-condition">{listing.condition.name}</p>
+                  <p className="profile-listing-name">{listing.name}</p>
+                  <p className="profile-listing-price">S${listing.price}</p>
+                  <p className="profile-listing-condition">
+                    {listing.condition.name}
+                  </p>
                 </div>
                 <div className="likes-container">
                   <IonIcon icon={heart} className="heart-icon" />

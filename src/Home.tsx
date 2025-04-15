@@ -2,6 +2,9 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Carousel from "react-multi-carousel";
 import { useNavigate } from "react-router-dom";
+import { formatDistanceToNow } from "date-fns";
+import { IonIcon } from "@ionic/react";
+import { heart } from "ionicons/icons";
 
 import NavBar from "./components/NavBar";
 import SearchBar from "./components/SearchBar";
@@ -24,12 +27,26 @@ type Advertisement = {
   image: string;
 };
 
+type Listing = {
+  _id: string;
+  name: string;
+  price: number;
+  images: string[];
+  condition: {
+    _id: string;
+    name: string;
+  };
+  createdAt: Date;
+  likes: number;
+};
+
 function Home() {
   const authContext = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
+  const [listings, setListings] = useState<Listing[]>([]);
 
   useEffect(() => {
     getHome();
@@ -44,10 +61,15 @@ function Home() {
       });
       if (response) {
         setAdvertisements(response.data.advertisements);
+        setListings(response.data.listings);
       }
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleListing = (listingID: string) => {
+    navigate(`/listing/${listingID}`);
   };
 
   return (
@@ -79,6 +101,44 @@ function Home() {
             </div>
           ))}
       </Carousel>
+      <div className="home-listings-container">
+        <h2 className="listings-header">For You</h2>
+        <div className="home-listings">
+          {listings.map((listing) => (
+            <div
+              className="home-listing-card"
+              key={listing._id}
+              onClick={() => {
+                handleListing(listing._id);
+              }}
+            >
+              <div className="card-image-wrapper">
+                <img src={listing.images?.[0]} className="card-image" />
+                <div className="listing-duration-overlay">
+                  {listing.createdAt
+                    ? formatDistanceToNow(listing.createdAt, {
+                        addSuffix: true,
+                      })
+                    : "Unknown"}
+                </div>
+              </div>
+              <div className="card-details">
+                <div className="card-meta">
+                  <p className="home-listing-name">{listing.name}</p>
+                  <p className="home-listing-price">S${listing.price}</p>
+                  <p className="home-listing-condition">
+                    {listing.condition.name}
+                  </p>
+                </div>
+                <div className="likes-container">
+                  <IonIcon icon={heart} className="home-heart-icon" />
+                  <p className="likes-number">{listing.likes}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
       <NavBar />
     </div>
   );

@@ -114,9 +114,7 @@ function ProductDetailsForm() {
         <IonSearchbar
           className="category-searchbar"
           debounce={500}
-          onIonInput={(e) => {
-            handleInput(e);
-          }}
+          onIonInput={(e) => handleInput(e)}
         />
         <div className="category-options">
           {results.map((result) => (

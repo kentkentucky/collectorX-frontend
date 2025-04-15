@@ -296,7 +296,7 @@ ion-item.settings-item {
   flex-grow: 2;
 }
 
-.listing-name {
+.profile-listing-name {
   font-size: 16px;
   font-weight: 600;
   line-height: 125%;
@@ -305,7 +305,7 @@ ion-item.settings-item {
   margin: 0;
 }
 
-.listing-price {
+.profile-listing-price {
   font-size: 16px;
   font-weight: 600;
   line-height: 125%;
@@ -314,7 +314,7 @@ ion-item.settings-item {
   margin: 0;
 }
 
-.listing-condition {
+.profile-listing-condition {
   color: grey;
   font-size: 16px;
   font-weight: 600;
@@ -334,7 +334,6 @@ ion-item.settings-item {
 .heart-icon {
   width: 20px;
   height: 20px;
-  color: #4a5eee;
 }
 
 .likes-number {
