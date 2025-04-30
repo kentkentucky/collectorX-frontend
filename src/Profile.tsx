@@ -26,7 +26,7 @@ import { Browser } from "@capacitor/browser";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
 import { AuthContext } from "./App";
@@ -71,10 +71,10 @@ function Profile() {
   const [isOpen, setIsOpen] = useState(false);
 
   const actions = [
-    { name: "Watchlist", icon: heart },
-    { name: "Purchases", icon: receipt },
-    { name: "Sales", icon: pricetag },
-    { name: "Bids & Offers", icon: hammer },
+    { name: "Watchlist", icon: heart, path: "/favourites" },
+    { name: "Purchases", icon: receipt, path: "/favourites" },
+    { name: "Sales", icon: pricetag, path: "/favourites" },
+    { name: "Bids & Offers", icon: hammer, path: "/favourites" },
   ];
 
   useEffect(() => {
@@ -289,10 +289,10 @@ function Profile() {
       </div>
       <div className="user-actions-hub">
         {actions.map((action, index) => (
-          <div className="action-btn" key={index}>
+          <Link to={action.path} className="action-link" key={index}>
             <IonIcon icon={action.icon} className="action-icon" />
             <p className="action-name">{action.name}</p>
-          </div>
+          </Link>
         ))}
       </div>
       <div className="user-listings-container">

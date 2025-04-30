@@ -1,4 +1,4 @@
-.list-container {
+.edit-listing-container {
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
@@ -43,42 +43,20 @@
   flex-shrink: 0;
 }
 
-.choose-category-container {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding-right: 16px;
+.listing-image-wrapper {
+  position: relative;
+  display: inline-block;
 }
 
-.choose-category-header {
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 125%;
-  letter-spacing: 2%;
-  margin: 0;
-  padding: 0;
-}
-
-.category-searchbar {
-  --background: #717171;
-  --color: #fff;
-  --placeholder-color: #fff;
-  --icon-color: #fff;
-  --clear-button-color: #fff;
-  --border-radius: 4px;
-  padding: 0;
-  margin: 0;
-}
-
-.category-options {
-  display: flex;
-  flex-direction: column;
-}
-
-.category-option {
-  border-bottom: 1px solid #383838;
+.remove-circle-icon {
+  position: absolute;
+  top: 20px;
+  right: 5px;
+  width: 25px;
+  height: 25px;
+  color: red;
+  flex-shrink: 0;
+  z-index: 1;
 }
 
 .listing-details-form {
@@ -119,24 +97,8 @@ ion-item.ion-custom-item {
   --background: #656565;
 }
 
-.listing-form-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.btn-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+ion-button.listing-save-btn {
+  width: 100%;
   padding-right: 16px;
-}
-
-.back-btn,
-.finish-btn {
-  width: 50%;
-  --background-color: #5032f6;
-  --border-radius: 15px;
-  background: none;
+  --background: green;
 }

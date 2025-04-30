@@ -104,11 +104,13 @@ function ListingDetailsForm() {
     formData.append("location", listingContext.listingDetails.location);
 
     // Convert image URLs to Blobs and append them to FormData
-    for (const imageUrl of listingContext.listingDetails.images) {
-      const response = await fetch(imageUrl); // Fetch the file from the URL
+    for (let i = 0; i < listingContext.listingDetails.images.length; i++) {
+      const response = await fetch(listingContext.listingDetails.images[i]); // Fetch the file from the URL
       const blob = await response.blob(); // Convert to Blob
-      formData.append("images", blob, "image.jpg"); // Append to FormData
+      const fileName = `image-${i + 1}-${Date.now()}.jpg`;
+      formData.append("images", blob, fileName); // Append to FormData
     }
+
     try {
       const response = await axios.post(
         "http://localhost:8080/list/create",

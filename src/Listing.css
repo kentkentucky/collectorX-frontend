@@ -21,7 +21,8 @@ ion-fab {
   flex-shrink: 0;
 }
 
-.listing-trash-icon {
+.listing-trash-icon,
+.listing-edit-icon {
   width: 30px;
   height: 30px;
   color: #4a5eee;
@@ -284,4 +285,19 @@ ion-button#chat {
 
 ion-button#offer {
   --background: #4a5eee;
+}
+
+ion-toolbar {
+  --background: #383838;
+  --color: white;
+}
+
+ion-item {
+  --background: #383838;
+  --border-bottom: none;
+}
+
+ion-input.offer-input {
+  --background: #383838;
+  --color: white;
 }

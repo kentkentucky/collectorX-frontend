@@ -1,9 +1,21 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import axios from "axios";
 import Carousel from "react-multi-carousel";
-import { IonButton, IonIcon, IonFab } from "@ionic/react";
-import { arrowBack, heart, star, trash } from "ionicons/icons";
+import {
+  IonButton,
+  IonIcon,
+  IonFab,
+  IonModal,
+  IonButtons,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonContent,
+  IonItem,
+  IonInput,
+} from "@ionic/react";
+import { arrowBack, heart, star, trash, create } from "ionicons/icons";
 import { formatDistanceToNow } from "date-fns";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -47,6 +59,9 @@ type Listing = {
 };
 
 function Listing() {
+  const modal = useRef<HTMLIonModalElement>(null);
+  const input = useRef<HTMLIonInputElement>(null);
+
   const { user } = useAuth0();
 
   const authContext = useContext(AuthContext);
@@ -134,6 +149,26 @@ function Listing() {
     return averageRating.toFixed(2);
   };
 
+  const handleDelete = async (listingID: string) => {
+    try {
+      const response = await axios.delete("http://localhost:8080/listing", {
+        params: { listingID },
+        headers: {
+          Authorization: `Bearer ${authContext?.authToken}`,
+        },
+      });
+      if (response.status == 200) {
+        navigate("/profile");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const confirm = () => {
+    modal.current?.dismiss(input.current?.value, "confirm");
+  };
+
   return (
     <div className="listing-container">
       <IonFab
@@ -146,7 +181,24 @@ function Listing() {
       </IonFab>
       {user?.sub?.slice(6) === listing.userID?._id ? (
         <IonFab slot="fixed" vertical="top" horizontal="end">
-          <IonIcon icon={trash} className="listing-trash-icon" />
+          <IonIcon
+            icon={create}
+            className="listing-edit-icon"
+            onClick={() => {
+              navigate("edit");
+            }}
+          />
+          <IonIcon
+            icon={trash}
+            className="listing-trash-icon"
+            onClick={() => {
+              if (listing._id) {
+                handleDelete(listing._id);
+              } else {
+                console.error("Error: listing._id is undefined");
+              }
+            }}
+          />
         </IonFab>
       ) : null}
       {listing.images && listing.images.length > 1 ? (
@@ -291,6 +343,35 @@ function Listing() {
           </>
         )}
       </div>
+      <IonModal ref={modal} trigger="offer">
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonButton onClick={() => modal.current?.dismiss()}>
+                Cancel
+              </IonButton>
+            </IonButtons>
+            <IonTitle>Offer</IonTitle>
+            <IonButtons slot="end">
+              <IonButton strong={true} onClick={() => confirm()}>
+                Confirm
+              </IonButton>
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent className="ion-padding">
+          <IonItem>
+            <IonInput
+              label="Enter the amount"
+              labelPlacement="stacked"
+              ref={input}
+              type="number"
+              placeholder={listing.price?.toString()}
+              className="offer-input"
+            />
+          </IonItem>
+        </IonContent>
+      </IonModal>
     </div>
   );
 }

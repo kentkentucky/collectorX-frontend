@@ -27,6 +27,7 @@
   justify-content: center;
   border-radius: 50%;
   transition: background-color 0.2s ease;
+  position: relative;
 }
 
 .navbar-icon {
@@ -51,4 +52,17 @@
 
 .navbar-item.active .navbar-icon-wrapper {
   background-color: #e6e6e61f;
+}
+
+.unread-chat-badge {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  background-color: red;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  z-index: 1;
 }

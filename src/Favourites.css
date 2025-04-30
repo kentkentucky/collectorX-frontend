@@ -1,63 +1,44 @@
-.home-container {
+.favourites-container {
   width: 100vw;
-  height: 90vh;
-  overflow-y: auto;
+  height: 100vh;
+  padding-top: env(safe-area-inset-top);
   padding-left: 16px;
   padding-right: 16px;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: 20px;
-  box-sizing: border-box;
-}
-
-.carousel-container {
-  width: 100%;
-  height: 190px;
-  margin: 20px 0;
-}
-
-.item-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: auto;
-}
-
-.carousel-img {
-  width: 100%;
-  height: 190px;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
-.react-multi-carousel-dot > button {
-  background: #8b8b8b !important;
-  border: none !important;
-  width: 8px !important;
-  height: 8px !important;
-  margin-bottom: 10px !important;
-}
-
-.react-multi-carousel-dot--active > button {
-  background: #676ef1 !important;
-}
-
-.home-listings-container {
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.home-listings {
+.favourite-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.arrow-back-icon {
+  width: 24px;
+  height: 24px;
+  color: #4a5eee;
+}
+
+.favourite-title {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 125%;
+  letter-spacing: 2%;
+  margin: 0;
+  padding: 0;
+}
+
+.favourites-listings {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
-.home-listing-card {
+.favourite-listing-card {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -102,7 +83,7 @@
   flex-grow: 2;
 }
 
-.home-listing-name {
+.favourite-listing-name {
   font-size: 16px;
   font-weight: 600;
   line-height: 125%;
@@ -111,7 +92,7 @@
   margin: 0;
 }
 
-.home-listing-price {
+.favourite-listing-price {
   font-size: 16px;
   font-weight: 600;
   line-height: 125%;
@@ -120,7 +101,7 @@
   margin: 0;
 }
 
-.home-listing-condition {
+.favourite-listing-condition {
   color: grey;
   font-size: 16px;
   font-weight: 600;
@@ -137,16 +118,8 @@
   gap: 2px;
 }
 
-.home-heart-icon {
+.favourite-heart-icon.active {
   width: 20px;
   height: 20px;
-}
-
-.home-heart-icon.active {
   color: #4a5eee;
-}
-
-.likes-number {
-  padding: 0;
-  margin: 0;
 }

@@ -40,6 +40,11 @@ type Listing = {
   likes: number;
 };
 
+type Favourite = {
+  _id: string;
+  listingID: string;
+};
+
 function Home() {
   const authContext = useContext(AuthContext);
 
@@ -47,6 +52,7 @@ function Home() {
 
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
   const [listings, setListings] = useState<Listing[]>([]);
+  const [favourites, setFavourites] = useState<string[]>([]);
 
   useEffect(() => {
     getHome();
@@ -62,6 +68,11 @@ function Home() {
       if (response) {
         setAdvertisements(response.data.advertisements);
         setListings(response.data.listings);
+        setFavourites(
+          response.data.favourites.map(
+            (favourite: Favourite) => favourite.listingID
+          )
+        );
       }
     } catch (error) {
       console.error(error);
@@ -70,6 +81,38 @@ function Home() {
 
   const handleListing = (listingID: string) => {
     navigate(`/listing/${listingID}`);
+  };
+
+  const handleFavourite = async (
+    e: React.MouseEvent<HTMLIonIconElement>,
+    listingID: string
+  ) => {
+    e.stopPropagation();
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/favourites",
+        { listingID },
+        {
+          headers: {
+            Authorization: `Bearer ${authContext?.authToken}`,
+          },
+        }
+      );
+      if (response.status == 200) {
+        // Update the favourites state
+        setFavourites((prevFavourites) => {
+          if (prevFavourites.includes(listingID)) {
+            // Remove from favourites
+            return prevFavourites.filter((id) => id !== listingID);
+          } else {
+            // Add to favourites
+            return [...prevFavourites, listingID];
+          }
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -131,7 +174,15 @@ function Home() {
                   </p>
                 </div>
                 <div className="likes-container">
-                  <IonIcon icon={heart} className="home-heart-icon" />
+                  <IonIcon
+                    icon={heart}
+                    className={`home-heart-icon ${
+                      favourites.includes(listing._id) ? "active" : ""
+                    }`}
+                    onClick={(e) => {
+                      handleFavourite(e, listing._id);
+                    }}
+                  />
                   <p className="likes-number">{listing.likes}</p>
                 </div>
               </div>

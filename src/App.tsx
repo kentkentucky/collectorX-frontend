@@ -35,6 +35,9 @@ import Chat from "./Chat";
 import List from "./List";
 import Listing from "./Listing";
 import Category from "./Category";
+import Favourites from "./Favourites";
+import EditListing from "./EditListing";
+import ChatRoom from "./ChatRoom";
 
 interface AuthContextType {
   authToken: string;
@@ -68,6 +71,9 @@ function App() {
             <Route path="/list" element={<List />} />
             <Route path="/listing/:listingID" element={<Listing />} />
             <Route path="/category/:categoryID" element={<Category />} />
+            <Route path="/favourites" element={<Favourites />} />
+            <Route path="/listing/:listingID/edit" element={<EditListing />} />
+            <Route path="/chat/:chatID" element={<ChatRoom />} />
           </Routes>
         </BrowserRouter>
       </AuthContext.Provider>
