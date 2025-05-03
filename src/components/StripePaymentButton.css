@@ -1,5 +1,5 @@
 ion-button.payment-button {
   height: 40px;
-  width: 100px;
+  width: 100%;
   --background: green;
 }

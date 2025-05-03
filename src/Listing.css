@@ -287,6 +287,10 @@ ion-button#offer {
   --background: #4a5eee;
 }
 
+ion-button#checkout {
+  --background: green;
+}
+
 ion-toolbar {
   --background: #383838;
   --color: white;

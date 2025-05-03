@@ -200,9 +200,9 @@ function ListingDetailsForm() {
             value={listingContext.listingDetails.dealMethod}
             onIonChange={(e) => handleInputChange(e, "dealMethod")}
           >
-            <IonSelectOption value="delivery">Delivery</IonSelectOption>
-            <IonSelectOption value="meetup">Meet-Up</IonSelectOption>
-            <IonSelectOption value="either">Either</IonSelectOption>
+            <IonSelectOption value="Delivery">Delivery</IonSelectOption>
+            <IonSelectOption value="Meetup">Meet-Up</IonSelectOption>
+            <IonSelectOption value="Either">Either</IonSelectOption>
           </IonSelect>
         </IonItem>
         {(listingContext.listingDetails.dealMethod === "meetup" ||

@@ -31,7 +31,6 @@ function Favourites() {
   const navigate = useNavigate();
 
   const [favourites, setFavourites] = useState<Favourites[]>([]);
-  console.log(favourites);
 
   useEffect(() => {
     getFavourites();

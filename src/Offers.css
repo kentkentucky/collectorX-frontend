@@ -1,0 +1,153 @@
+.offer-container {
+  width: 100vw;
+  height: 100vh;
+  padding-top: env(safe-area-inset-top);
+  padding-left: 16px;
+  padding-right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.offer-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.arrow-back-icon {
+  width: 24px;
+  height: 24px;
+  color: #4a5eee;
+}
+
+.offer-page-title {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 125%;
+  letter-spacing: 2%;
+  margin: 0;
+  padding: 0;
+}
+
+.incoming-offers,
+.outgoing-offers,
+.accepted-offers,
+.declined-offers,
+.cancelled-offers {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.incoming-header,
+.outgoing-header,
+.accepted-header,
+.declined-header,
+.cancelled-header {
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 125%;
+  letter-spacing: 2%;
+  margin: 0;
+  padding: 0;
+}
+
+.offer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 2px solid #343434;
+}
+
+.offer-listing-image-wrapper {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+}
+
+.offer-listing-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.offer-listing-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.offer-listing-details > p {
+  margin: 0;
+  padding: 0;
+}
+
+.offer-listing-name {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.offer-listing-price {
+  font-weight: 500;
+  color: #888;
+}
+
+.offer-listing-status {
+  color: dodgerblue;
+}
+
+.offer-price {
+  font-weight: 500;
+  color: #28a745;
+}
+
+.offer-date {
+  font-style: italic;
+  color: #888;
+}
+
+.offer-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+ion-button.decline-btn {
+  --background: none;
+  --color: red;
+  --border-color: red;
+  --border-width: 1px;
+  --border-style: solid;
+}
+
+ion-button.accept-btn {
+  --background: none;
+  --color: green;
+  --border-color: green;
+  --border-width: 1px;
+  --border-style: solid;
+}
+
+ion-button.delete-btn {
+  --background: none;
+  --color: red;
+  --border-color: red;
+  --border-width: 1px;
+  --border-style: solid;
+  height: 60px;
+}
+
+ion-button.checkout-btn {
+  --background: none;
+  --color: green;
+  --border-color: green;
+  --border-width: 1px;
+  --border-style: solid;
+  height: 60px;
+}

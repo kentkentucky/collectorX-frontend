@@ -20,7 +20,6 @@ import { formatDistanceToNow } from "date-fns";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { AuthContext } from "./App";
-import StripePaymentButton from "./components/StripePaymentButton";
 
 import "./Listing.css";
 import "react-multi-carousel/lib/styles.css";
@@ -54,6 +53,7 @@ type Listing = {
     reviews: {
       rating: number;
     }[];
+    isSold: boolean;
     createdAt: string;
   };
 };
@@ -165,8 +165,48 @@ function Listing() {
     }
   };
 
-  const confirm = () => {
-    modal.current?.dismiss(input.current?.value, "confirm");
+  const confirm = async () => {
+    const offer = input.current?.value;
+
+    if (!offer) return;
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/offer/create",
+        {
+          listingID: listing._id,
+          sellerID: listing.userID?._id,
+          offer,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authContext?.authToken}`,
+          },
+        }
+      );
+
+      if (response.status == 200) {
+        modal.current?.dismiss(offer, "confirm");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleChat = async (sellerID: string) => {
+    try {
+      const response = await axios.get("http://localhost:8080/chat/toggle", {
+        params: { sellerID },
+        headers: {
+          Authorization: `Bearer ${authContext?.authToken}`,
+        },
+      });
+      if (response) {
+        navigate(`/chat/${response.data.chatID}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -329,15 +369,24 @@ function Listing() {
             <IonButton id="offer" className="action-btn">
               Offer
             </IonButton>
-            {listing.price && authContext?.authToken ? (
-              <StripePaymentButton
-                amount={listing.price}
-                authToken={authContext.authToken}
-              />
-            ) : (
-              <p>Unable to process payment</p>
-            )}
-            <IonButton id="chat" className="action-btn">
+            <IonButton
+              id="checkout"
+              className="action-btn"
+              onClick={() => {
+                navigate("checkout");
+              }}
+            >
+              Checkout
+            </IonButton>
+            <IonButton
+              id="chat"
+              className="action-btn"
+              onClick={() => {
+                if (listing?.userID?._id) {
+                  handleChat(listing.userID._id);
+                }
+              }}
+            >
               Chat
             </IonButton>
           </>

@@ -2,15 +2,27 @@ import { useState } from "react";
 import axios from "axios";
 import { Stripe } from "@capacitor-community/stripe";
 import { IonButton } from "@ionic/react";
+import { useNavigate } from "react-router-dom";
 
 import "./StripePaymentButton.css";
 
 type StripePaymentButtonProps = {
   amount: number;
   authToken: string;
+  listingID: string;
+  sellerID: string;
+  offerID?: string;
 };
 
-function StripePaymentButton({ amount, authToken }: StripePaymentButtonProps) {
+function StripePaymentButton({
+  amount,
+  authToken,
+  listingID,
+  sellerID,
+  offerID,
+}: StripePaymentButtonProps) {
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
 
   const handleCheckout = async () => {
@@ -18,7 +30,7 @@ function StripePaymentButton({ amount, authToken }: StripePaymentButtonProps) {
     try {
       const response = await axios.post(
         "http://localhost:8080/payment/create",
-        { amount, currency: "sgd" },
+        { amount, currency: "sgd", listingID, sellerID, offerID },
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -32,7 +44,9 @@ function StripePaymentButton({ amount, authToken }: StripePaymentButtonProps) {
         });
 
         const { paymentResult } = await Stripe.presentPaymentSheet();
-        console.log(paymentResult);
+        if (paymentResult === "paymentSheetCompleted") {
+          navigate("/profile");
+        }
       }
     } catch (error) {
       console.error("Error during checkout:", error);
@@ -47,7 +61,7 @@ function StripePaymentButton({ amount, authToken }: StripePaymentButtonProps) {
       disabled={loading}
       className="payment-button"
     >
-      {loading ? "Loading..." : "Buy"}
+      {loading ? "Loading..." : "PAY"}
     </IonButton>
   );
 }

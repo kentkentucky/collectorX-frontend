@@ -1,9 +1,12 @@
 import { IonIcon } from "@ionic/react";
 import { hammer, close } from "ionicons/icons";
 import { IonSearchbar } from "@ionic/react";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import {
+  UNSAFE_getPatchRoutesOnNavigationFunction,
+  useNavigate,
+} from "react-router-dom";
 
 import { AuthContext } from "../App";
 
@@ -34,6 +37,26 @@ function SearchBar() {
   });
   const [focused, setFocused] = useState(false);
   const [recents, setRecents] = useState<Recent[]>([]);
+  const [offers, setOffers] = useState(0);
+
+  useEffect(() => {
+    getOffers();
+  }, []);
+
+  const getOffers = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/offer/count", {
+        headers: {
+          Authorization: `Bearer ${authContext?.authToken}`,
+        },
+      });
+      if (response) {
+        setOffers(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleInput = (e: CustomEvent) => {
     let query = e.detail.value;
@@ -161,6 +184,10 @@ function SearchBar() {
     }
   };
 
+  const handleOffer = () => {
+    navigate("/offers");
+  };
+
   return (
     <div className="search-container">
       <div className="searchbar-container">
@@ -179,7 +206,16 @@ function SearchBar() {
             });
           }}
         ></IonSearchbar>
-        {!focused && <IonIcon icon={hammer} className="hammer-icon" />}
+        {!focused && (
+          <div className="hammer-wrapper">
+            <IonIcon
+              icon={hammer}
+              className="hammer-icon"
+              onClick={handleOffer}
+            />
+            {offers > 0 && <div className="offer-badge">{offers}</div>}
+          </div>
+        )}
       </div>
       {focused &&
         (results.listings.length +

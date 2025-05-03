@@ -72,9 +72,9 @@ function Profile() {
 
   const actions = [
     { name: "Watchlist", icon: heart, path: "/favourites" },
-    { name: "Purchases", icon: receipt, path: "/favourites" },
-    { name: "Sales", icon: pricetag, path: "/favourites" },
-    { name: "Bids & Offers", icon: hammer, path: "/favourites" },
+    { name: "Purchases", icon: receipt, path: "/purchases" },
+    { name: "Sales", icon: pricetag, path: "/sales" },
+    { name: "Offers", icon: hammer, path: "/offers" },
   ];
 
   useEffect(() => {

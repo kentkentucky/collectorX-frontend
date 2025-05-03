@@ -35,7 +35,6 @@ function Chat() {
 
   const [chats, setChats] = useState<Chat[]>([]);
   const [unreadCounts, setUnreadCounts] = useState<UnreadCountMap>({});
-  console.log(unreadCounts);
 
   useEffect(() => {
     getChats();

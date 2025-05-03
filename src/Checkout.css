@@ -1,0 +1,156 @@
+.checkout-container {
+  width: 100vw;
+  height: 100vh;
+  padding-top: env(safe-area-inset-top);
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.checkout-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.checkout-arrow-back-icon {
+  width: 26px;
+  height: 26px;
+  color: #4a5eee;
+}
+
+.checkout-title {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 125%;
+  letter-spacing: 2%;
+  margin: 0;
+  padding: 0;
+}
+
+.checkout-review {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.checkout-details-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.checkout-detail-header {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 125%;
+  letter-spacing: 2%;
+  margin: 0;
+  padding: 0;
+  align-self: center;
+}
+
+.checkout-item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 2px solid #343434;
+  margin: 0;
+}
+
+.checkout-item-image-wrapper {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+}
+
+.item-listing-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-listing-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.item-listing-details > p {
+  margin: 0;
+  padding: 0;
+}
+
+.item-listing-name {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.item-listing-total {
+  align-self: center;
+}
+
+.item-offer-price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: gray;
+  margin-right: 0.5rem;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.offer-price {
+  color: green;
+  font-weight: bold;
+  font-size: 20px;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.checkout-summary {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  padding: 16px;
+}
+
+.total-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 24px 0 8px 0;
+  margin: 0;
+  border-top: 2px solid #343434;
+}
+
+.total-label,
+.total-value {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 125%;
+  letter-spacing: 2%;
+  margin: 0;
+  padding: 0;
+}

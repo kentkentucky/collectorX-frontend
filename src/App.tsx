@@ -38,6 +38,10 @@ import Category from "./Category";
 import Favourites from "./Favourites";
 import EditListing from "./EditListing";
 import ChatRoom from "./ChatRoom";
+import Offers from "./Offers";
+import Checkout from "./Checkout";
+import Purchases from "./Purchases";
+import Sales from "./Sales";
 
 interface AuthContextType {
   authToken: string;
@@ -74,6 +78,13 @@ function App() {
             <Route path="/favourites" element={<Favourites />} />
             <Route path="/listing/:listingID/edit" element={<EditListing />} />
             <Route path="/chat/:chatID" element={<ChatRoom />} />
+            <Route path="/offers" element={<Offers />} />
+            <Route
+              path="/listing/:listingID/:offerID?/checkout"
+              element={<Checkout />}
+            />
+            <Route path="/purchases" element={<Purchases />} />
+            <Route path="/sales" element={<Sales />} />
           </Routes>
         </BrowserRouter>
       </AuthContext.Provider>

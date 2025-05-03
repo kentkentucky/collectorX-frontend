@@ -1,0 +1,89 @@
+.purchases-container {
+  width: 100vw;
+  height: 100vh;
+  padding-top: env(safe-area-inset-top);
+  padding-left: 16px;
+  padding-right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.purchases-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.arrow-back-icon {
+  width: 24px;
+  height: 24px;
+  color: #4a5eee;
+}
+
+.purchases-title {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 125%;
+  letter-spacing: 2%;
+  margin: 0;
+  padding: 0;
+}
+
+.purchase-item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 2px solid #343434;
+}
+
+.purchase-listing-image-wrapper {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+}
+
+.purchase-listing-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.purchase-listing-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.purchase-listing-details > p {
+  margin: 0;
+  padding: 0;
+}
+
+.purchase-listing-name {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.purchase-price {
+  font-weight: 500;
+  color: green;
+}
+
+.purchase-date {
+  font-style: italic;
+  color: #888;
+}
+
+ion-button.review-btn {
+  --background: none;
+  --color: #676ef1;
+  --border-color: #676ef1;
+  --border-width: 1px;
+  --border-style: solid;
+  height: 60px;
+}
